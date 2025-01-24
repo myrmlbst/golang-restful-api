@@ -1,4 +1,4 @@
-module github.com/myrmlbst/golang-api
+module github.com/myrmlbst/golang-restful-api
 
 go 1.22.2
 
