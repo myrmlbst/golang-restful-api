@@ -4,10 +4,10 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/myrmlbst/golang-api/api"
-	"github.com/myrmlbst/golang-api/internal/tools"
-	log "github.com/sirupsen/logrus"
 	"github.com/gorilla/schema"
+	"github.com/myrmlbst/golang-restful-api/api"
+	"github.com/myrmlbst/golang-restful-api/internal/tools"
+	log "github.com/sirupsen/logrus"
 )
 
 func GetCoinBalance(w http.ResponseWriter, r *http.Request) {
@@ -40,10 +40,10 @@ func GetCoinBalance(w http.ResponseWriter, r *http.Request) {
 
 	var response = api.CoinBalanceResponse{
 		Balance: (*&tokenDetails.Coins),
-		Code: http.StatusOK,
+		Code:    http.StatusOK,
 	}
 
-	w.Header().Set("Content-Type", "application/json") 
+	w.Header().Set("Content-Type", "application/json")
 	err = json.NewEncoder(w).Encode(response)
 	if err != nil {
 		log.Error(err)
