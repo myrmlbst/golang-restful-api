@@ -2,9 +2,11 @@ package middleware
 
 import (
 	"errors"
+	"fmt"
 	"net/http"
-	"github.com/myrmlbst/golang-api/api"
-	"github.com/myrmlbst/golang-api/internal/tools"
+
+	"github.com/myrmlbst/golang-restful-api/api"
+	"github.com/myrmlbst/golang-restful-api/internal/tools"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -15,7 +17,7 @@ func Authorization(next http.Handler) http.Handler {
 		var username string = r.URL.Query().Get("username")
 		var token = r.Header.Get("Authorization")
 		var err error
-		
+
 		fmt.Println("username :", username)
 		fmt.Println("token :", token)
 
@@ -34,9 +36,9 @@ func Authorization(next http.Handler) http.Handler {
 		var loginDetails *tools.LoginDetails
 		loginDetails = (*database).GetUserLoginDetails(username)
 
-		if (loginDetails == nil || (token != (*loginDetails).AuthToken)) {
+		if loginDetails == nil || (token != (*loginDetails).AuthToken) {
 			log.Error(UnAuthorizedError)
-			log.RequestErrorHandler(w, UnAuthorizedError)
+			api.RequestErrorHandler(w, UnAuthorizedError)
 			return
 		}
 
